@@ -2,17 +2,16 @@
 // Public domain code
 // modified Jan 2021 from code released by BrainSlugs83 - https://github.com/BrainSlugs83/Amiga500-Keyboard/blob/main/AmigaKeyboard.ino
 // https://forum.arduino.cc/index.php?topic=139358.90
-// ByteMavericks: added reset code for MiSTerFGPA, and overloaded the HELP key to serve as F12, F11 and also Print screen
+// ByteMavericks / Nick: added reset code for MiSTerFGPA, and overloaded the HELP key to serve as F12, F11 and also Print screen
 // HELP = F12 (OSD)
 // Ctrl-HELP = F11
 // Shift-HELP = PRINTSCREEN
 // Useful MisterFPGA shortcuts:
 // - Ctrl-LSHIFT-LALT-RALT= master reset (same as reset key)
 // - Ctrl - Amiga- Amiga = CTRL LALT RALT = core reset
+// Left dead key (international key) - between shift and Z - = F11, 
+// right dead key (international key) - to left of Return = F12
 // Keyboard interface board with LED driver available - if interested drop me a line
-
-
-
 
 // UNCOMMENT THE NEXT LINE TO USE AN ESP32 WITH BLUETOOTH, YOU WILL NEED THE LIBRARY FROM https://github.com/T-vK/ESP32-BLE-Keyboard AND A COMPATIBLE ESP32 DEVICE.
 //#define USE_ESP32_BLUETOOTH
@@ -314,7 +313,9 @@ void loop()
                   else if (keyCode >= 16 && keyCode <= 27) { SetKey(isConnected, alpha1[keyCode - 16], pressed); }
                   else if (keyCode >= 29 && keyCode <= 31) { SetKey(isConnected, ((keyCode - 29) + 89 + 136), pressed); } // NUMPAD 1, 2, 3
                   else if (keyCode >= 32 && keyCode <= 42) { SetKey(isConnected, alpha2[keyCode - 32], pressed); }
+                  else if (keyCode == 43) { SetKey(isConnected, KEY_F1 + 11, pressed); } // RIGHT "dead key", next to Return key - Send F12
                   else if (keyCode >= 45 && keyCode <= 47) { SetKey(isConnected, ((keyCode - 45) + 92 + 136), pressed); } // NUMPAD 4, 5, 6
+                  else if (keyCode == 48) { SetKey(isConnected, KEY_F1 + 10, pressed); } // LEFT "dead key", between Shift and Z - Send F11
                   else if (keyCode >= 49 && keyCode <= 58) { SetKey(isConnected, alpha3[keyCode - 49], pressed); }
                   else if (keyCode == 60) { SetKey(isConnected, (99 + 136), pressed); } // NUMPAD .
                   else if (keyCode >= 61 && keyCode <= 63) { SetKey(isConnected, ((keyCode - 61) + 95 + 136), pressed); } // NUMPAD 7, 8, 9
